@@ -7,6 +7,8 @@ Quickly sort GitHub repository files and folders by their last commit date. Feat
 
 🚀 **Sort GitHub directories instantly with zero configuration, zero tokens, and zero API calls.**
 
+![GitSort Screenshot](.github/screenshot.png)
+
 ---
 
 ## ✨ Features
