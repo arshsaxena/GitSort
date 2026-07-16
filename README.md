@@ -1,4 +1,7 @@
-# 🕒 GitSort — GitHub Folder & File Sorter
+<h1>
+    <img alt="GitSort logo" src="icons/originals/icon_square.png" width="50" valign="middle">
+    &nbsp;GitSort — GitHub Folder & File Sorter
+</h1>
 
 Quickly sort GitHub repository files and folders by their last commit date. Features a native UI, local preference memory, and absolute date toggles. Zero setup, zero tokens, 100% local.
 

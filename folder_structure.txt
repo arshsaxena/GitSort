@@ -5,7 +5,10 @@
 ├── icons
 │   ├── icon128.png
 │   ├── icon16.png
-│   └── icon48.png
+│   ├── icon48.png
+│   └── originals
+│       ├── icon_square.png
+│       └── icon_transparent.png
 ├── manifest.json
 └── src
     ├── content.js
@@ -15,4 +18,4 @@
     ├── ui.js
     └── utils.js
 
-3 directories, 13 files
+4 directories, 15 files
