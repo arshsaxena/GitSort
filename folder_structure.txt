@@ -1,4 +1,5 @@
 .
+├── LICENSE
 ├── README.md
 ├── folder_structure.txt
 ├── icons
@@ -14,4 +15,4 @@
     ├── ui.js
     └── utils.js
 
-3 directories, 12 files
+3 directories, 13 files
