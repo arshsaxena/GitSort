@@ -190,24 +190,23 @@
 		}
 	}
 
-	function triggerTableReflow(table) {
+	let savedColgroup = null;
+
+	function removeColgroup(table) {
 		if (!table) return;
 		const colgroup = table.querySelector('colgroup');
-		const parent = colgroup ? colgroup.parentNode : null;
-		const next = colgroup ? colgroup.nextSibling : null;
-
-		if (colgroup && parent) {
-			parent.removeChild(colgroup);
+		if (colgroup) {
+			savedColgroup = colgroup;
+			colgroup.remove();
 		}
+	}
 
-		table.style.setProperty('table-layout', 'auto', 'important');
-		// eslint-disable-next-line no-unused-expressions
-		table.offsetHeight;
-		table.style.removeProperty('table-layout');
-
-		if (colgroup && parent) {
-			parent.insertBefore(colgroup, next);
+	function restoreColgroup(table) {
+		if (!table || !savedColgroup) return;
+		if (!table.querySelector('colgroup')) {
+			table.insertBefore(savedColgroup, table.firstChild);
 		}
+		savedColgroup = null;
 	}
 
 	function applyAbsoluteTimeOverlays(table) {
@@ -245,13 +244,18 @@
 				el.parentNode.insertBefore(span, el.nextSibling);
 			}
 		}
-		triggerTableReflow(table);
+		removeColgroup(table);
+		// eslint-disable-next-line no-unused-expressions
+		table.offsetHeight;
 	}
 
 	function removeAbsoluteTimeOverlays() {
 		const table = GitSortUtils.findDirectoryTable();
 		if (table) {
 			table.classList.remove('gitsort-show-absolute');
+			restoreColgroup(table);
+			// eslint-disable-next-line no-unused-expressions
+			table.offsetHeight;
 		}
 
 		const overlays = document.querySelectorAll('.gitsort-abs-time');
@@ -266,7 +270,6 @@
 			el.style.display = '';
 			delete el.dataset.gitsortHidden;
 		}
-		triggerTableReflow(table);
 	}
 
 	function formatAbsoluteDate(date) {
