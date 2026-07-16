@@ -16,6 +16,17 @@ Quickly sort GitHub repository files and folders by their last commit date. Feat
 
 ---
 
+## 🌐 Compatible Browsers
+
+[![Chrome](https://img.shields.io/badge/Google%20Chrome-4285F4?style=for-the-badge&logo=google-chrome&logoColor=white)](https://google.com/chrome)
+[![Brave](https://img.shields.io/badge/Brave-FB542B?style=for-the-badge&logo=brave&logoColor=white)](https://brave.com)
+[![Edge](https://img.shields.io/badge/Microsoft%20Edge-0078D7?style=for-the-badge&logo=microsoft-edge&logoColor=white)](https://microsoft.com/edge)
+[![Opera](https://img.shields.io/badge/Opera-FF1B2D?style=for-the-badge&logo=opera&logoColor=white)](https://opera.com)
+
+> All Chromium-based browsers are supported.
+
+---
+
 ## 📦 Installation
 
 1. **Download & Extract**: Download this repository as a ZIP file and extract it to your computer.
