@@ -1,0 +1,17 @@
+.
+├── README.md
+├── folder_structure.txt
+├── icons
+│   ├── icon128.png
+│   ├── icon16.png
+│   └── icon48.png
+├── manifest.json
+└── src
+    ├── content.js
+    ├── sorter.js
+    ├── storage.js
+    ├── styles.css
+    ├── ui.js
+    └── utils.js
+
+3 directories, 12 files

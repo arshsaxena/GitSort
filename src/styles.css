@@ -1,0 +1,188 @@
+/* styles.css — GitSort extension styles */
+
+/* Toolbar container */
+.gitsort-toolbar {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 8px 16px;
+	margin-bottom: 0;
+	border: 1px solid
+		var(--borderColor-default, var(--color-border-default, #d1d9e0));
+	border-bottom: none;
+	border-radius: 6px 6px 0 0;
+	background-color: var(--bgColor-muted, var(--color-canvas-subtle, #f6f8fa));
+	font-size: 12px;
+	line-height: 20px;
+	font-family:
+		-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica,
+		Arial, sans-serif;
+}
+
+/* "Sort:" label */
+.gitsort-label {
+	color: var(--fgColor-muted, var(--color-fg-muted, #656d76));
+	font-weight: 600;
+	user-select: none;
+	white-space: nowrap;
+}
+
+/* Button group */
+.gitsort-btn-group {
+	display: inline-flex;
+	border-radius: 6px;
+	overflow: hidden;
+	border: 1px solid
+		var(--borderColor-default, var(--color-border-default, #d1d9e0));
+}
+
+.gitsort-btn-group .gitsort-btn {
+	border-radius: 0;
+	border: none;
+	border-right: 1px solid
+		var(--borderColor-default, var(--color-border-default, #d1d9e0));
+}
+
+.gitsort-btn-group .gitsort-btn:last-child {
+	border-right: none;
+}
+
+/* Buttons */
+.gitsort-btn {
+	display: inline-flex;
+	align-items: center;
+	gap: 5px;
+	padding: 3px 10px;
+	font-size: 12px;
+	font-weight: 500;
+	line-height: 20px;
+	white-space: nowrap;
+	cursor: pointer;
+	user-select: none;
+	border: 1px solid
+		var(--borderColor-default, var(--color-border-default, #d1d9e0));
+	border-radius: 6px;
+	color: var(--fgColor-default, var(--color-fg-default, #1f2328));
+	background-color: var(
+		--bgColor-default,
+		var(--color-canvas-default, #ffffff)
+	);
+	transition:
+		background-color 0.12s ease,
+		box-shadow 0.12s ease;
+	font-family: inherit;
+}
+
+.gitsort-btn:hover:not(:disabled) {
+	background-color: var(
+		--bgColor-neutral-muted,
+		var(--color-neutral-muted, #afb8c133)
+	);
+}
+
+.gitsort-btn:active:not(:disabled) {
+	background-color: var(
+		--bgColor-neutral-muted,
+		var(--color-neutral-muted, #afb8c14d)
+	);
+}
+
+/* Active state */
+.gitsort-btn-active {
+	background-color: var(
+		--bgColor-accent-muted,
+		var(--color-accent-subtle, #ddf4ff)
+	);
+	color: var(--fgColor-accent, var(--color-accent-fg, #0969da));
+	font-weight: 600;
+	border-color: var(
+		--borderColor-accent-muted,
+		var(--color-accent-muted, #54aeff66)
+	);
+}
+
+.gitsort-btn-active:hover {
+	background-color: var(
+		--bgColor-accent-muted,
+		var(--color-accent-subtle, #ddf4ff)
+	) !important;
+}
+
+/* Disabled state */
+.gitsort-btn-disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+/* SVG icon inside button */
+.gitsort-icon {
+	vertical-align: text-bottom;
+	flex-shrink: 0;
+}
+
+/* Adjust table border when toolbar is present */
+#gitsort-toolbar + table {
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+}
+
+/* Make sure rows that were just sorted keep their outline on focus */
+.react-directory-row:focus-visible {
+	outline: 2px solid var(--fgColor-accent, var(--color-accent-fg, #0969da));
+	outline-offset: -2px;
+}
+
+/* Absolute time toggle button (right side) */
+.gitsort-btn-abstime {
+	margin-left: auto;
+}
+
+.gitsort-btn-abstime[aria-pressed='true'] {
+	color: var(--fgColor-accent, var(--color-accent-fg, #0969da));
+}
+
+/* Absolute time overlay spans */
+.gitsort-abs-time {
+	color: var(--fgColor-muted, var(--color-fg-muted, #656d76));
+	white-space: nowrap;
+	display: inline-block !important;
+	max-width: none !important;
+	overflow: visible !important;
+}
+
+/* Prevent clipping or truncation of absolute dates in column */
+
+/* 1. Set the last cell of the directory table rows to 215px width ONLY when absolute times are active */
+.gitsort-show-absolute tr.react-directory-row td:last-child,
+.gitsort-show-absolute tr.react-directory-row th:last-child,
+tr.react-directory-row td:last-child:has(.gitsort-abs-time) {
+	width: 215px !important;
+	min-width: 215px !important;
+	max-width: 215px !important;
+	overflow: visible !important;
+}
+
+/* 2. Style the inner commit age container to fill the cell when absolute times are active */
+.gitsort-show-absolute .react-directory-commit-age,
+.react-directory-commit-age:has(.gitsort-abs-time) {
+	width: 100% !important;
+	max-width: none !important;
+	min-width: 0 !important;
+	text-align: right !important;
+	overflow: visible !important;
+}
+
+/* 3. Support grid-based rows if active */
+tr.react-directory-row:has(.gitsort-abs-time),
+.gitsort-show-absolute tr.react-directory-row {
+	grid-template-columns: auto minmax(0, 1fr) 215px !important;
+}
+
+/* 4. Remove max-width and overflow constraints on all children inside the active directory cell */
+.gitsort-show-absolute tr.react-directory-row td:last-child *,
+tr.react-directory-row td:last-child:has(.gitsort-abs-time) * {
+	max-width: none !important;
+	width: auto !important;
+	overflow: visible !important;
+	text-overflow: clip !important;
+}

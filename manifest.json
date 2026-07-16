@@ -1,0 +1,27 @@
+{
+	"manifest_version": 3,
+	"name": "GitSort — GitHub Folder & File Sorter",
+	"version": "1.0",
+	"description": "Quickly sort GitHub repository files and folders by their last commit date. Features a native UI, local preference memory, and absolute date toggles. Zero setup, zero tokens, 100% local.",
+	"permissions": ["storage"],
+	"host_permissions": ["https://github.com/*"],
+	"content_scripts": [
+		{
+			"matches": ["https://github.com/*"],
+			"js": [
+				"src/storage.js",
+				"src/utils.js",
+				"src/sorter.js",
+				"src/ui.js",
+				"src/content.js"
+			],
+			"css": ["src/styles.css"],
+			"run_at": "document_idle"
+		}
+	],
+	"icons": {
+		"16": "icons/icon16.png",
+		"48": "icons/icon48.png",
+		"128": "icons/icon128.png"
+	}
+}
