@@ -190,6 +190,26 @@
 		}
 	}
 
+	function triggerTableReflow(table) {
+		if (!table) return;
+		const colgroup = table.querySelector('colgroup');
+		const parent = colgroup ? colgroup.parentNode : null;
+		const next = colgroup ? colgroup.nextSibling : null;
+
+		if (colgroup && parent) {
+			parent.removeChild(colgroup);
+		}
+
+		table.style.setProperty('table-layout', 'auto', 'important');
+		// eslint-disable-next-line no-unused-expressions
+		table.offsetHeight;
+		table.style.removeProperty('table-layout');
+
+		if (colgroup && parent) {
+			parent.insertBefore(colgroup, next);
+		}
+	}
+
 	function applyAbsoluteTimeOverlays(table) {
 		if (!table) return;
 		table.classList.add('gitsort-show-absolute');
@@ -225,6 +245,7 @@
 				el.parentNode.insertBefore(span, el.nextSibling);
 			}
 		}
+		triggerTableReflow(table);
 	}
 
 	function removeAbsoluteTimeOverlays() {
@@ -245,6 +266,7 @@
 			el.style.display = '';
 			delete el.dataset.gitsortHidden;
 		}
+		triggerTableReflow(table);
 	}
 
 	function formatAbsoluteDate(date) {

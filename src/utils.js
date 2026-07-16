@@ -94,9 +94,24 @@ var GitSortUtils = (function () {
 	}
 
 	function isDirectoryRow(row) {
+		const link = row.querySelector('a.Link--primary');
+		if (link) {
+			const label = link.getAttribute('aria-label') || '';
+			if (label.includes('(Directory)')) return true;
+			if (label.includes('(File)')) return false;
+		}
+
+		const svg = row.querySelector('svg.octicon');
+		if (svg) {
+			const classes = svg.getAttribute('class') || '';
+			if (classes.includes('octicon-file-directory')) return true;
+			if (classes.includes('octicon-file')) return false;
+		}
+
 		const id = row.id || '';
 		if (id.startsWith('folder-row')) return true;
 		if (id.startsWith('file-row')) return false;
+
 		return !!row.querySelector(
 			'.icon-directory, .octicon-file-directory-fill',
 		);

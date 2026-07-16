@@ -152,14 +152,41 @@
 
 /* Prevent clipping or truncation of absolute dates in column */
 
-/* 1. Set the last cell of the directory table rows to 215px width ONLY when absolute times are active */
-.gitsort-show-absolute tr.react-directory-row td:last-child,
-.gitsort-show-absolute tr.react-directory-row th:last-child,
+/* 1. Set the last cell and col element to 215px width ONLY when absolute times are active */
+.gitsort-show-absolute colgroup col:last-child,
+.gitsort-show-absolute col:last-child,
+.gitsort-show-absolute td:last-child:not([colspan]),
+.gitsort-show-absolute th:last-child:not([colspan]),
 tr.react-directory-row td:last-child:has(.gitsort-abs-time) {
 	width: 215px !important;
 	min-width: 215px !important;
 	max-width: 215px !important;
 	overflow: visible !important;
+}
+
+/* 1b. Style the first column (Name) to 250px to prevent layout squishing */
+.gitsort-show-absolute colgroup col:first-child,
+.gitsort-show-absolute col:first-child,
+.gitsort-show-absolute td:first-child:not([colspan]),
+.gitsort-show-absolute
+	tr.react-directory-row
+	td.react-directory-row-name-cell-large-screen {
+	width: 250px !important;
+	min-width: 250px !important;
+	max-width: 250px !important;
+}
+
+/* 1c. Decrease middle commit message column width so the last column has space to expand */
+.gitsort-show-absolute col:not(:first-child):not(:last-child),
+.gitsort-show-absolute colgroup col:not(:first-child):not(:last-child),
+.gitsort-show-absolute td.react-directory-row-commit-cell {
+	width: auto !important;
+}
+
+/* 1d. Allow table width to flex dynamically when absolute times are active to prevent clipping */
+table.gitsort-show-absolute {
+	width: auto !important;
+	min-width: 100% !important;
 }
 
 /* 2. Style the inner commit age container to fill the cell when absolute times are active */
@@ -179,7 +206,7 @@ tr.react-directory-row:has(.gitsort-abs-time),
 }
 
 /* 4. Remove max-width and overflow constraints on all children inside the active directory cell */
-.gitsort-show-absolute tr.react-directory-row td:last-child *,
+.gitsort-show-absolute td:last-child:not([colspan]) *,
 tr.react-directory-row td:last-child:has(.gitsort-abs-time) * {
 	max-width: none !important;
 	width: auto !important;
