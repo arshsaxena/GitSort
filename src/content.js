@@ -53,7 +53,6 @@
 	function cleanup() {
 		removeAbsoluteTimeOverlays();
 		GitSortUI.removeToolbar();
-		currentPrefs.showAbsoluteTime = false;
 		orderCaptured = false;
 		isSorting = false;
 		if (timestampPollTimer) {
