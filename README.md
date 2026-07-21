@@ -9,6 +9,8 @@ Quickly sort GitHub repository files and folders by their last commit date. Feat
 
 ![GitSort Screenshot](.github/screenshot.png)
 
+> 🔗 Looking for the Firefox version? Check out [GitSort-Firefox](https://github.com/GitSort-Dev/GitSort-Firefox).
+
 ---
 
 ## ✨ Features
@@ -34,7 +36,7 @@ Quickly sort GitHub repository files and folders by their last commit date. Feat
 
 ## 📦 Installation
 
-1. **Download & Extract**: Download this repository as a ZIP file (or download the ZIP file from the [Releases](https://github.com/arsh-saxena02/GitSort/releases) section) and extract it to your computer.
+1. **Download & Extract**: Download this repository as a ZIP file (or download the ZIP file from the [Releases](https://github.com/GitSort-Dev/GitSort/releases) section) and extract it to your computer.
 2. **Go to Extensions**: Open Google Chrome and navigate to `chrome://extensions/`.
 3. **Developer Mode**: Toggle the **"Developer mode"** switch in the top right corner.
 4. **Load Unpacked**: Click **"Load unpacked"** in the top left.

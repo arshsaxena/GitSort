@@ -1,4 +1,6 @@
 .
+├── .github
+│   └── screenshot.png
 ├── LICENSE
 ├── README.md
 ├── folder_structure.txt
@@ -19,4 +21,4 @@
     ├── ui.js
     └── utils.js
 
-4 directories, 16 files
+5 directories, 17 files
