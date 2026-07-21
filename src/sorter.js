@@ -4,7 +4,6 @@ var GitSortSorter = (function () {
 	'use strict';
 
 	let originalOrder = [];
-	let originalNameOrder = [];
 	let currentSortMode = 'alphabetical';
 
 	// Reconstruct default alphabetical folders-first directory order.
@@ -17,22 +16,15 @@ var GitSortSorter = (function () {
 			if (aDir && !bDir) return -1;
 			if (!aDir && bDir) return 1;
 
-			const nameA = GitSortUtils.getRowName(a).toLowerCase();
-			const nameB = GitSortUtils.getRowName(b).toLowerCase();
-			return nameA.localeCompare(nameB, undefined, {
-				sensitivity: 'base',
-				numeric: true,
-			});
+			const nameA = GitSortUtils.getRowName(a);
+			const nameB = GitSortUtils.getRowName(b);
+			return nameA < nameB ? -1 : nameA > nameB ? 1 : 0;
 		});
 		return list;
 	}
 
 	function captureOriginalOrder(rows) {
-		const defaultSorted = reconstructDefaultOrder(rows);
-		originalOrder = defaultSorted;
-		originalNameOrder = defaultSorted.map((row) =>
-			GitSortUtils.getRowName(row),
-		);
+		originalOrder = rows.slice();
 	}
 
 	function getOriginalOrder() {
@@ -55,29 +47,7 @@ var GitSortSorter = (function () {
 		currentSortMode = mode;
 
 		if (mode === 'alphabetical') {
-			const orderMap = new Map();
-			originalOrder.forEach((row, i) => orderMap.set(row, i));
-
-			const allFound = rows.every((row) => orderMap.has(row));
-			if (allFound) {
-				rows.sort((a, b) => orderMap.get(a) - orderMap.get(b));
-			} else {
-				const nameOrderMap = new Map();
-				originalNameOrder.forEach((name, i) => {
-					if (name) nameOrderMap.set(name, i);
-				});
-
-				rows.sort((a, b) => {
-					const nameA = GitSortUtils.getRowName(a);
-					const nameB = GitSortUtils.getRowName(b);
-					const ia = nameOrderMap.get(nameA) ?? 9999;
-					const ib = nameOrderMap.get(nameB) ?? 9999;
-					return ia - ib;
-				});
-
-				captureOriginalOrder(rows);
-			}
-			return rows;
+			return reconstructDefaultOrder(rows);
 		}
 
 		const tsMap = new Map();
@@ -90,11 +60,21 @@ var GitSortSorter = (function () {
 			const ta = tsMap.get(a);
 			const tb = tsMap.get(b);
 
-			if (ta === 0 && tb === 0) return 0;
-			if (ta === 0) return 1;
-			if (tb === 0) return -1;
+			if (ta !== tb) {
+				if (ta === 0) return 1;
+				if (tb === 0) return -1;
+				return tb - ta;
+			}
 
-			return tb - ta;
+			// Fallback to alphabetical order
+			const aDir = GitSortUtils.isDirectoryRow(a);
+			const bDir = GitSortUtils.isDirectoryRow(b);
+			if (aDir && !bDir) return -1;
+			if (!aDir && bDir) return 1;
+
+			const nameA = GitSortUtils.getRowName(a);
+			const nameB = GitSortUtils.getRowName(b);
+			return nameA < nameB ? -1 : nameA > nameB ? 1 : 0;
 		});
 
 		return rows;
